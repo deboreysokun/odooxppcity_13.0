@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <template id="payment_voucher_mkl">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="a2a_accounting_report.vkr_payment_voucher_custom_template_layout">
+                    <div class="page">
+                        <div style="text-align: center;font-size: 20px;font-weight:bold;margin-top:2em;font-family: Arial;">
+                            <span>PAYMENT VOUCHER</span>
+                        </div>
+                        <br/>
+
+                        <!--Start of Info, <![CDATA[&nbsp;]]> : use to give white space in qweb-->
+                        <div class="container">
+                            <div class="row"
+                                 style="display:-webkit-box; -webkit-flex: justify; width: 100%;                       font-size: 12px; font-family: Arial;margin-left: 0em; margin-top:2em;">
+                                <div class="col-5" style="width: 50%;margin-left: 2em;">
+                                    <div><span style="font-weight: bold;">Pay to :</span>&amp;nbsp;
+                                        <t t-set="partner_name" t-value="doc.partner_id.name"/>
+                                        <t t-foreach="doc.invoice_line_ids" t-as="invoice_line">
+                                            <t t-if="not partner_name">
+                                                <t t-set="partner_name" t-value="invoice_line.partner_id.name"/>
+                                            </t>
+                                        </t>
+                                        <t t-esc="partner_name"/>
+                                    </div>
+                                    <div>
+                                        <span style="font-weight: bold;">Tel :</span>
+                                        &amp;nbsp;
+                                        <t t-esc="doc.partner_id.phone"/>
+                                    </div>
+                                    <div>
+                                        <strong>Address : &amp;nbsp;</strong>
+                                        <t t-esc="doc.partner_id.street"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-5" style="width: 500px; margin-left: 14em; font-family: Arial;">
+                                    <div><span style="font-weight: bold;">Voucher Number :</span>&amp;nbsp;
+<!--                                        <t t-if="docs.type == 'in_invoice'">-->
+<!--                                            <t t-foreach="doc.get_vendor_bill_data(doc.invoice_payments_widget)"-->
+<!--                                               t-as="ref">-->
+<!--                                                <t t-set="payment_object"-->
+<!--                                                   t-value="doc.get_vendor_bill_data(doc.invoice_payments_widget)"/>-->
+<!--                                                <t t-esc="payment_object[ref]['invoice_ref'][0]"/>-->
+<!--                                            </t>-->
+<!--                                        </t>-->
+<!--                                        <t t-else="">-->
+                                            <t t-esc="doc.ref"/>
+<!--                                        </t>-->
+                                    </div>
+
+                                    <div><span style="font-weight: bold;">Invoice Date :</span>&amp;nbsp;
+                                        <t t-esc="doc.date"/>
+                                    </div>
+                                    <div><span style="font-weight: bold;">Status :</span>&amp;nbsp;
+                                        <t t-esc="doc.state"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--End of Info-->
+
+                        <!--start of check box-->
+                        <table class="table table-bordered"
+                               style="width: 60%; text-align: center;font-family: Arial;margin: auto;margin-top: 4px">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;border:1px solid black;width: 20%;">Bank</th>
+                                    <th style="text-align: center;border:1px solid black; width: 20%;">Cash</th>
+                                    <th style="text-align: center;border:1px solid black;width: 20%;">Payable</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: center;border:1px solid black;padding: 10px;">
+                                        <div style="width:40px;;height:40px;;border:1px solid #000;margin: auto;">
+                                            <div t-if="doc.x_payment_option == 'bank'"
+                                                 style="font-size:40px;margin-bottom:10px;">&#10003;
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="text-align: center;border:1px solid black;padding: 10px;">
+                                        <div style="width:40px;;height:40px;;border:1px solid #000;margin: auto;">
+                                            <div t-if="doc.x_payment_option == 'cash'"
+                                                 style="font-size:40px;margin-bottom:10px;">&#10003;
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="text-align: center;border:1px solid black;padding: 10px;">
+                                        <div style="width:40px;;height:40px;;border:1px solid #000;margin: auto;">
+                                            <div t-if="doc.x_payment_option == 'ap'"
+                                                 style="font-size:40px;margin-bottom:10px;">&#10003;
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!--End of check box-->
+
+                        <!--Start of data box-->
+                        <table class=""
+                               style="width: 100%; text-align: center;border-top: 1px solid black; font-family: Arial;margin: auto;margin-top: 2%;">
+                            <thead class="border border-dark">
+                                <tr>
+                                    <th style="text-align: left;width: 5%; padding: 0.5%;border-bottom: 1px solid black;                                     font-size: 11px;">
+                                        No.
+                                    </th>
+                                    <th style="text-align: left;width: 11%;padding: 0.5%;border-left: 1px solid black;                                     border-bottom: 1px solid black;font-size: 11px;">
+                                        Date
+                                    </th>
+                                    <th style="text-align: left;width: 48%;padding: 0.5%;border-left: 1px solid black;                                     border-bottom: 1px solid black;font-size: 11px;">
+                                        Particular
+                                    </th>
+                                    <th style="text-align: left;width: 5%;padding: 0.5%;border-left: 1px solid black;                                     border-bottom: 1px solid black;font-size: 11px;">
+                                        Account
+                                    </th>
+                                    <th style="text-align: left;width: 11%;padding: 0.5%;border-left: 1px solid black;                                     border-bottom: 1px solid black;font-size: 11px;">
+                                        Quantity
+                                    </th>
+                                    <th style="text-align: left;width: 9%;padding: 0.5%;border-left: 1px solid black;                                     border-bottom: 1px solid black;font-size: 11px;">
+                                        Debit
+                                    </th>
+                                    <th style="text-align: left;width: 9%;padding: 0.5%;border-left: 1px solid black;                                     border-bottom: 1px solid black;font-size: 11px;">
+                                        Credit
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="border border-dark">
+                                <t t-set="number_of_row" t-value="0"/>
+                                <t t-set="total_credit" t-value="0"/>
+                                <t t-set="sequence" t-value="1"/>
+                                <t t-foreach="doc.line_ids" t-as="line">
+                                    <tr>
+                                    <t t-set="number_of_row" t-value="number_of_row+1"/>
+                                        <td style="text-align: left;padding: 1%;font-size: 11px;border-left: 1px solid black; border-bottom: 1px solid lightgray;">
+                                            <t t-esc="sequence"/>
+                                        </td>
+                                        <td style="text-align: left;padding: 1%;font-size: 11px; border-left: 1px solid black;border-bottom: 1px solid lightgray;">
+                                            <t t-esc="doc.date"/>
+                                            <!--<t t-esc="payment_object[ref]['payment_date'][1]"/>-->
+                                        </td>
+                                        <td style="text-align: left;padding: 1%;font-size: 11px; border-left: 1px solid black;border-bottom: 1px solid lightgray;">
+                                            <t t-esc="line.account_id.name"/>
+                                            <br/>
+                                            &amp;nbsp;
+                                            <t t-esc="line.name"/>
+                                            <br/>
+                                            <t t-esc="line.partner_id.name"/>
+                                        </td>
+                                        <td style="text-align: left;padding: 1%;font-size: 11px; border-left: 1px solid black;border-bottom: 1px solid lightgray;">
+                                            <t t-esc="line.account_id.code"/>
+                                        </td>
+                                        <td style="text-align: left;padding: 1%;font-size: 11px; border-left: 1px solid black;border-bottom: 1px solid lightgray;">
+                                            <t t-esc="1"/>
+                                        </td>
+                                        <td style="text-align: left;padding: 1%;font-size: 11px; border-left: 1px solid black;border-bottom: 1px solid lightgray;">
+                                            <t t-esc="line.debit"/>
+                                        </td>
+                                        <td style="text-align: left;padding: 1%;font-size: 11px; border-left: 1px solid black;border-bottom: 1px solid lightgray;">
+                                            <t t-esc="line.credit"/>
+                                            <t t-set="total_credit" t-value="total_credit+line['credit']"/>
+                                        </td>
+                                    </tr>
+                                    <t t-set="sequence" t-value="sequence+1"/>
+                                </t>
+                                <!--                                &lt; is the HTML entity for the less-than symbol ("<") -->
+                                <t t-if="number_of_row &lt;=10">
+                                    <tr t-foreach="range(1,12-number_of_row)" t-as="index">
+                                        <td style="border-left: 1px solid black;border-right: 1px solid black; border-bottom: 1px solid lightgray;width: 3%; height: 30px"/>
+                                        <td style="border-left: 1px solid black;border-right: 1px solid black; border-bottom: 1px solid lightgray;width: 9%; height: 30px"/>
+                                        <td style="border-left: 1px solid black;border-right: 1px solid black; border-bottom: 1px solid lightgray;width: 50%; height: 30px"/>
+                                        <td style="border-left: 1px solid black;border-right: 1px solid black; border-bottom: 1px solid lightgray;width: 5%; height: 30px"/>
+                                        <td style="border-left: 1px solid black;border-right: 1px solid black; border-bottom: 1px solid lightgray;width: 9%; height: 30px"/>
+                                        <td style="border-left: 1px solid black;border-right: 1px solid black; border-bottom: 1px solid lightgray;width: 9%; height: 30px"/>
+                                        <td style="border-left: 1px solid black;border-right: 1px solid black; border-bottom: 1px solid lightgray;width: 9%; height: 30px"/>
+                                    </tr>
+                                </t>
+
+                            </tbody>
+                        </table>
+                        <!--Total row-->
+                        <table style="width: 100%; text-align: center;margin: auto;border: 1px solid black;                          font-size: 11px; font-family: Arial;margin: auto;">
+                            <tr>
+                                <td style="text-align: right;padding:1%; font-size: 11px;font-weight: bold;">
+                                    Total(USD)
+                                </td>
+                                <td style="text-align: center;width: 9%;padding: 1%; font-size: 11px;font-weight: bold;">
+                                    <t t-esc="'$ {0:,.2f}'.format(doc.get_total_of_payment_voucher())"/>
+                                </td>
+                                <td style="text-align: center;width: 9%;padding: 1%; font-size: 11px;font-weight: bold;">
+                                    <t t-esc="'$ {0:,.2f}'.format(total_credit)"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td style="text-align: left;font-size: 11px;width:800px;">
+                                        ( Note:
+                                        <t t-if="docs.type == 'in_invoice'">
+                                            <t t-if="doc.journal_id.name">
+                                                <t t-esc="doc.journal_id.name"/>
+                                            </t>
+                                        </t>
+                                        <t t-if="docs.type != 'in_invoice'">
+                                            <t t-if="doc.journal_id.name">
+                                                <t t-esc="doc.journal_id.name"/>
+                                            </t>
+                                        </t>
+                                        )
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <!--End of PDF Report-->
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

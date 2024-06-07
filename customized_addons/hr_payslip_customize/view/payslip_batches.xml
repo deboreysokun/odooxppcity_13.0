@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Payslips batches form view inheritance to add more code inside employee_ids and add field department_id -->
+    <record id="view_hr_payslip_batch_form_inherit" model="ir.ui.view">
+        <field name="name">hr.payslip.batch.inherit</field>
+        <field name="model">hr.payslip.employees</field>
+        <field name="inherit_id" ref="om_hr_payroll.view_hr_payslip_by_employees"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/group/field[@name='employee_ids']" position="replace">
+                <field name="employee_ids" colspan="5" nolabel="1"/>
+            </xpath>
+            <xpath expr="//group[separator]" position="before">
+                <group colspan="4">
+                    <field name="department_ids" widget="many2many_tags" label="Department"/>
+                </group>
+            </xpath>
+        </field>
+<!-- This code for inherit the payslip run to add field company_id-->
+    </record>
+    <record id="view_hr_payslip_run_form_inherit" model="ir.ui.view">
+        <field name="name">hr.payslip.run.inherit</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="inherit_id" ref="om_hr_payroll.hr_payslip_run_form"/>
+        <field name="arch" type="xml">
+            <field name="credit_note" position="before">
+                <field name="company_id"/>
+                <field name="exchange_rate"/>
+                <field name="attachment_ids" widget="many2many_binary" class="oe_inline"/>
+            </field>
+        </field>
+    </record>
+</odoo>
