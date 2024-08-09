@@ -20,6 +20,7 @@
                 <br/>
                 <br/>
             </div>
+        </div>  
     </t>
     <t t-if="docs.company_id.name=='KIT VKirirom'">
         <div class="header border-bottom border-dark">
