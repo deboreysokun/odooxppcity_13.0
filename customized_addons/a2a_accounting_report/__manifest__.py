@@ -8,7 +8,7 @@
   'website': 'https://docs.google.com/document/d/1BzFCpYVMn_hsKkT7A2cCzyCqhN5ytPrSaeNFpKMo8Qk',
   'category': 'Accounting',
   'version': '13.2.1',
-  'depends': ['base', 'accounting_pdf_reports', 'odoo_report_xlsx', 'hotel_folio', 'inventory_fields_customize'],
+  'depends': ['base', 'accounting_pdf_reports', 'odoo_report_xlsx', 'inventory_fields_customize'],
   'data': [
     'reports/customer_invoice/paperformat.xml',
     'reports/customer_invoice/report.xml',
